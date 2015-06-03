@@ -36,35 +36,38 @@
 /**
  * 按钮
  */
-
-.widget .widget_title a.widget_min {
+.widget .widget_op a.widget_open {
+	background-position: 0 0;
+}
+.widget .widget_op a.widget_open:hover {
+	background-position: 0 -29px;
+}
+.widget .widget_op a.widget_min {
 	background-position: -29px 0;
 }
 .widget .widget_title a.widget_min:hover {
 	background-position: -29px -29px;
 }
-.widget .widget_title a.widget_max {
+.widget .widget_op a.widget_max {
 	background-position: -60px 0;
 }
-.widget .widget_title a.widget_max:hover {
+.widget .widget_op a.widget_max:hover {
 	background-position: -60px -29px;
 }
-.widget .widget_title a.widget_revert {
+.widget .widget_op a.widget_revert {
 	background-position: -149px 0;
 }
-.widget .widget_title a.widget_revert:hover {
+.widget .widget_op a.widget_revert:hover {
 	background-position: -149px -29px;
 }
-.widget .widget_title a.widget_close {
+.widget .widget_op a.widget_close {
 	background-position: -89px 0;
 }
-.widget .widget_title a.widget_close:hover {
+.widget .widget_op a.widget_close:hover {
 	background-position: -89px -29px;
 }
-.widget .widget_title a.widget_min,
-a.widget_max,
-a.widget_revert,
-a.widget_close,
+.widget .widget_op 
+a,
 a.widget_open {
 	float: left;
 	width: 21px;
