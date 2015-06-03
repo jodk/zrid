@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="css/widget.css" />
+		<script type="text/javascript" src="js/widget.js"></script>
+		<script type="text/javascript" src="js/zrid.js"></script>
+		<script>
+			 //test 
+			window.onload = function() {
+				var zgrid = new Zrid('dashboard');
+				var widget1 = zgrid.addWidget({
+					l: false,
+					canDrag: true
+				});
+				widget1.setTitle("<span style='color:blue'>爸爸去哪了</span>");
+				widget1.appendContent("<p>hello world...</p>this is a content form second");
+				var widget2 = zgrid.addWidget({
+					canDrag: true
+				});
+				widget2.appendContent("this is a content from first<div><img src='img/tool.png'></img></div>");
+				var w3 = zgrid.addWidget({
+					canDrag: true
+				});
+				w3.setTitle("快乐大本营");
+				zgrid.addWidget({
+					canDrag: true
+				});
+				var w4 = zgrid.addWidget({
+					canDrag: true
+				});
+				w4.setTitle("<a href='http://www.baidu.com'>百度</a>");
+				w4.appendContent('百度（Nasdaq：BIDU）是全球最大的中文搜索引擎、最大的中文网站。2000年1月由李彦宏创立于北京中关村，致力于向人们提供“简单，可依赖”的信息获取方式。“百度”二字源于中国宋朝词人辛弃疾的《青玉案·元夕》词句“众里寻他千百度”，象征着百度对中文信息检索技术的执著追求。2015年1月24日，百度创始人、董事长兼CEO李彦宏在百度2014年会暨十五周年庆典上发表的主题演讲中表示，十五年来，百度坚持相信技术的力量，始终把简单可依赖的文化和人才成长机制当成最宝贵的财富，他号召百度全体员工，向连接人与服务的战略目标发起进攻');
+				zgrid.addWidget({
+					canDrag: true
+				});
+			};
+		</script>
+	</head>
+
+	<body>
+		<div>this is a test page </div>
+		<div id="dashboard" class="widgets"></div>
+
+	</body>
+
+</html>

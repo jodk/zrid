@@ -1,0 +1,152 @@
+/**
+ * widget模板
+ */
+.widgets{
+	position: relative;
+}
+.widget {
+	position: absolute;
+	background: #e9e9e9;
+	border: 1px solid;
+	border-color: dimgray;
+	clear: both;
+	margin: 2px;
+	overflow: auto;
+}
+/**
+ * widget中的title
+ */
+
+.widget .widget_title {
+	position: relative;
+	height: 25px;
+	margin: 3px;
+}
+.widget_title div {
+	font-weight: bold;
+	display: inline;
+	float: left;
+}
+.widget_title .title {
+	float: left;
+}
+.widget_title .widget_op {
+	float: right;
+}
+/**
+ * 按钮
+ */
+
+.widget .widget_title a.widget_min {
+	background-position: -29px 0;
+}
+.widget .widget_title a.widget_min:hover {
+	background-position: -29px -29px;
+}
+.widget .widget_title a.widget_max {
+	background-position: -60px 0;
+}
+.widget .widget_title a.widget_max:hover {
+	background-position: -60px -29px;
+}
+.widget .widget_title a.widget_revert {
+	background-position: -149px 0;
+}
+.widget .widget_title a.widget_revert:hover {
+	background-position: -149px -29px;
+}
+.widget .widget_title a.widget_close {
+	background-position: -89px 0;
+}
+.widget .widget_title a.widget_close:hover {
+	background-position: -89px -29px;
+}
+.widget .widget_title a.widget_min,
+a.widget_max,
+a.widget_revert,
+a.widget_close,
+a.widget_open {
+	float: left;
+	width: 21px;
+	height: 19px;
+	display: block;
+	margin-left: 5px;
+	background: url(../img/tool.png) no-repeat;
+}
+/**
+ * 上下左右拖动
+ * t:上方
+ * b:下方
+ * l：左方
+ * r:右方
+ */
+
+.widget .widget_t {
+	top: 0;
+	width: 100%;
+	height: 5px;
+	position: absolute;
+	cursor: n-resize;
+}
+.widget .widget_b {
+	bottom: 0;
+	width: 100%;
+	height: 5px;
+	position: absolute;
+	cursor: n-resize;
+}
+.widget .widget_l {
+	left: 0;
+	top: 0;
+	width: 5px;
+	height: 100%;
+	position: absolute;
+	cursor: w-resize;
+}
+.widget .widget_r {
+	right: 0;
+	top: 0;
+	width: 5px;
+	height: 100%;
+	position: absolute;
+	cursor: w-resize;
+}
+.widget .widget_lt {
+	left: 0;
+	top: 0;
+	width: 5px;
+	height: 5px;
+	position: absolute;
+	cursor: nw-resize;
+}
+.widget .widget_lb {
+	left: 0;
+	bottom: 0;
+	width: 5px;
+	height: 5px;
+	position: absolute;
+	cursor: sw-resize;
+}
+.widget .widget_rt {
+	right: 0;
+	top: 0;
+	width: 5px;
+	height: 5px;
+	position: absolute;
+	cursor: ne-resize;
+}
+.widget .widget_rb {
+	right: 0;
+	bottom: 0;
+	width: 5px;
+	height: 5px;
+	position: absolute;
+	cursor: nw-resize;
+}
+/**
+ * widget 内容部分
+ */
+
+.widget .content {
+	margin: 5px;
+}
