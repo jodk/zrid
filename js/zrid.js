@@ -17,19 +17,19 @@ function Zrid(id) {
 		this.widgets[widget.id] = widget;
 		this.widgets.length++;
 		var position = [];
+		position.id = widget.id;
 		position.left = get.pxToNum(widget.obj.style.left);
 		position.top = get.pxToNum(widget.obj.style.top);
 		position.width = get.pxToNum(widget.obj.style.width);
 		position.height = get.pxToNum(widget.obj.style.height);
-		this.positions[widget.id] = position;
-		this.positions.length++;
+		this.positions[this.positions.length] = position;
 		this.layout(this.algorithm);
 		widget.zrid = this; //反补
 		return widget;
 	};
 };
 Zrid.prototype.dragLayout = function(widget, algorithm) {
-	var position = this.positions[widget.id];
+	var position = this.getPositionById(widget.id);
 	var left = get.pxToNum(widget.obj.style.left);
 	var top = get.pxToNum(widget.obj.style.top);
 	var width = get.pxToNum(widget.obj.style.width);
@@ -40,12 +40,18 @@ Zrid.prototype.dragLayout = function(widget, algorithm) {
 	position.height = height;
 	this.layout(algorithm)
 }
+Zrid.prototype.getPositionById = function(id) {
+	for (var i = 0; i < this.positions.length; i++) {
+		if (id == this.positions[i].id) return this.positions[i];
+	}
+	return null;
+};
 Zrid.prototype.layout = function(algorithm) {
 	if (this.widgets.length < 1) return;
 	var zridObj = get.byId(this.id);
 	var mainWidth = get.pxToNum(zridObj.style.width) || zridObj.offsetWidth;
 	var mainLeft = get.pxToNum(zridObj.style.left);
-	console.log(mainLeft+"="+mainWidth);
+	console.log(mainLeft + "=" + mainWidth);
 	if (!algorithm) {
 		//default algorithm
 		this.resizeLayout(mainLeft, mainWidth);
@@ -56,28 +62,30 @@ Zrid.prototype.layout = function(algorithm) {
  */
 Zrid.prototype.minPosition = function() {
 	var min_pos_id = null;
-	for (var id in this.positions) {
-		var pos = this.positions[id];
+	var minPos = null;
+	for (var i=0;i<this.positions.length;i++) {
+		var pos = this.positions[i];
 		if (!pos.cover) {
 			continue;
 		}
 		if (min_pos_id == null) {
-			min_pos_id = id;
+			min_pos_id = pos.id;
+			minPos = pos;
 		} else {
-			var mintop = this.positions[min_pos_id].top;
-			var minleft = this.positions[min_pos_id].left;
-			var wttop = this.positions[id].top;
-			var wtleft = this.positions[id].left;
+			var mintop = minPos.top;
+			var minleft = minPos.left;
+			var wttop = this.positions[i].top;
+			var wtleft = this.positions[i].left;
 			if (Math.sqrt(minleft * minleft + mintop * mintop) > Math.sqrt(wttop * wttop + wtleft * wtleft)) {
-				min_pos_id = id;
+				min_pos_id = pos.id;
+				minPos = pos;
 			}
 		}
 	}
 	return min_pos_id;
 };
 Zrid.prototype.sortPosition = function(filed) {
-	var position = [];
-
+	this.positions.sort(function(a,b){return a[filed]>b[filed]?1:-1;});
 };
 /**
  * 对水平方向上进行限制
@@ -86,19 +94,21 @@ Zrid.prototype.sortPosition = function(filed) {
  */
 Zrid.prototype.resizeLayout = function(mainLeft, mainWidth) {
 	//假设所有widget都存在重叠的情况
-	for (var positionProperty in this.positions) {
-		this.positions[positionProperty].cover = true;
+	for (var i=0;i<this.positions.length;i++) {
+		this.positions[i].cover = true;
 	}
 	var num = this.positions.length; //widget 个数
 	var no_cover = 0; //不重叠的个数
 	var start = this.minPosition();
 	while (no_cover < num) {
+		this.sortPosition('left');
 		no_cover++;
-		var p = this.positions[start];
+		var p = this.getPositionById(start);
 		p.cover = false;
-		for (var posId in this.positions) {
+		for (var i=0;i<this.positions.length;i++) {
+			var posId = this.positions[i].id;
 			if (start == posId) continue;
-			var p2 = this.positions[posId];
+			var p2 = this.positions[i];
 			//定点在p内部
 			if (p2.left >= p.left && p2.left < p.left + p.width && p2.top >= p.top && p2.top < p.top + p.height) {
 				if (p.left + p.width - p2.left <= p.top + p.height - p2.top) { //水平方向调整
@@ -131,9 +141,9 @@ Zrid.prototype.resizeLayout = function(mainLeft, mainWidth) {
 		start = this.minPosition();
 	}
 	//元素调整
-	for (var id in this.positions) {
-		var pos = this.positions[id];
-		var widget = this.widgets[id];
+	for (var i=0;i<this.positions.length;i++) {
+		var pos = this.positions[i];
+		var widget = this.widgets[pos.id];
 		widget.obj.style.left = pos.left + "px";
 		widget.obj.style.top = pos.top + "px";
 	}
